@@ -10,7 +10,9 @@ public interface RestaurantService {
 
     public Restaurant findById(int theId);
 
-    public void save(Restaurant theRestaurant);
+    public void add(Restaurant theRestaurant);
+
+    public void update(Restaurant theRestaurant);
 
     public void deleteById(int theId);
 }

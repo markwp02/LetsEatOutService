@@ -27,15 +27,13 @@ public class RestaurantRestController {
 
     @PostMapping("/restaurants")
     public Restaurant addRestaurant(@RequestBody Restaurant restaurant) {
-        // force save of new item in case id is passed in body
-        restaurant.setRestaurantId(0);
-        restaurantService.save(restaurant);
+        restaurantService.add(restaurant);
         return restaurant;
     }
 
     @PutMapping("/restaurants")
     public Restaurant updateRestaurant(@RequestBody Restaurant restaurant) {
-        restaurantService.save(restaurant);
+        restaurantService.update(restaurant);
         return restaurant;
     }
 

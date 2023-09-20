@@ -32,8 +32,19 @@ public class FoodServiceImpl implements FoodService{
         return food;
     }
 
+    /**
+     * Separate methods to add food. This will force the save
+     * of a new item in case a food id is passed in the Food object.
+     * @param theFood
+     */
     @Override
-    public void save(Food theFood) {
+    public void add(Food theFood) {
+        theFood.setFoodId(0);
+        foodRepository.save(theFood);
+    }
+
+    @Override
+    public void update(Food theFood) {
         foodRepository.save(theFood);
     }
 

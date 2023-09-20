@@ -10,7 +10,9 @@ public interface FoodService {
 
     public Food findById(int theId);
 
-    public void save(Food theFood);
+    public void add(Food theFood);
+
+    public void update(Food theFood);
 
     public void deleteById(int theId);
 }

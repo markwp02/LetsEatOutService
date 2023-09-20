@@ -33,8 +33,19 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurant;
     }
 
+    /**
+     * Separate methods to add restaurant. This will force the save
+     * of a new item in case a restaurant id is passed in the Restaurant object.
+     * @param theRestaurant
+     */
     @Override
-    public void save(Restaurant theRestaurant) {
+    public void add(Restaurant theRestaurant) {
+        theRestaurant.setRestaurantId(0);
+        restaurantRepository.save(theRestaurant);
+    }
+
+    @Override
+    public void update(Restaurant theRestaurant) {
         restaurantRepository.save(theRestaurant);
     }
 
