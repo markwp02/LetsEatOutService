@@ -3,10 +3,12 @@ package com.markp.letseatoutservice.repository;
 import com.markp.letseatoutservice.dao.RestaurantRepository;
 import com.markp.letseatoutservice.entity.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
@@ -29,6 +31,12 @@ public class RestaurantServiceImpl implements RestaurantService {
         }
 
         return restaurant;
+    }
+
+    @Override
+    public Boolean restaurantExists(int theId) {
+        Optional<Restaurant> result = restaurantRepository.findById(Integer.valueOf(theId));
+        return result.isPresent();
     }
 
     @Override

@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS RESTAURANT;
 CREATE TABLE RESTAURANT(
 restaurant_id INT AUTO_INCREMENT PRIMARY KEY,
 restaurant_name VARCHAR(50) NOT NULL,
-restaurant_address VARCHAR(50),
+restaurant_address VARCHAR(100),
 restaurant_cuisine VARCHAR(50)
 );
 
