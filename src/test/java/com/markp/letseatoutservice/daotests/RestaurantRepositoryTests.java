@@ -1,4 +1,4 @@
-package com.markp.letseatoutservice.repository;
+package com.markp.letseatoutservice.daotests;
 
 import com.markp.letseatoutservice.dao.RestaurantRepository;
 import com.markp.letseatoutservice.entity.Restaurant;

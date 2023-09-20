@@ -1,4 +1,4 @@
-package com.markp.letseatoutservice.repository;
+package com.markp.letseatoutservice.service;
 
 import com.markp.letseatoutservice.dao.RestaurantRepository;
 import com.markp.letseatoutservice.entity.Restaurant;
@@ -34,18 +34,16 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Boolean restaurantExists(int theId) {
-        Optional<Restaurant> result = restaurantRepository.findById(Integer.valueOf(theId));
-        return result.isPresent();
-    }
-
-    @Override
     public void save(Restaurant theRestaurant) {
         restaurantRepository.save(theRestaurant);
     }
 
     @Override
     public void deleteById(int theId) {
+        Optional<Restaurant> result = restaurantRepository.findById(Integer.valueOf(theId));
+        if(!result.isPresent()) {
+            throw new RuntimeException("Restaurant not found - " + theId);
+        }
         restaurantRepository.deleteById(theId);
     }
 }

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,4 +30,7 @@ public class Restaurant {
     @Column(name="restaurant_cuisine")
     private String restaurantCuisine;
 
+    @OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="restaurant_id")
+    private List<Food> foodList;
 }

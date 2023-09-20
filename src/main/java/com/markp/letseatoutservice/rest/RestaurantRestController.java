@@ -1,7 +1,7 @@
 package com.markp.letseatoutservice.rest;
 
 import com.markp.letseatoutservice.entity.Restaurant;
-import com.markp.letseatoutservice.repository.RestaurantService;
+import com.markp.letseatoutservice.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,9 +41,6 @@ public class RestaurantRestController {
 
     @DeleteMapping("/restaurants/{restaurantId}")
     public String deleteRestaurant(@PathVariable int restaurantId) {
-        if(!restaurantService.restaurantExists(restaurantId)) {
-            throw new RuntimeException("Restaurant not found - " + restaurantId);
-        }
         restaurantService.deleteById(restaurantId);
 
         return "Deleted restaurant id - " + restaurantId;
