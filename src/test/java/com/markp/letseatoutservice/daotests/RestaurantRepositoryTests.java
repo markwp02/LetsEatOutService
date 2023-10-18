@@ -22,19 +22,24 @@ public class RestaurantRepositoryTests {
     @Autowired
     RestaurantRepository restaurantRepository;
 
+    final String RESTAURANT_NAME = "Grill'd";
+    final String RESTAURANT_ADDRESS = "278 Clarendon St, South Melbourne";
+    final String RESTAURANT_CUISINE = "BURGERS";
+
+    final int TARGET_INDEX = 1;
+
     @Test
     @Order(1)
     @Rollback(value = false)
     public void saveRestaurantTest() {
 
         Restaurant restaurant = Restaurant.builder()
-                .restaurantName("Grill'd")
-                .restaurantAddress("278 Clarendon St, South Melbourne")
-                .restaurantCuisine("Burgers")
+                .restaurantName(RESTAURANT_NAME)
+                .restaurantAddress(RESTAURANT_ADDRESS)
+                .restaurantCuisine(RESTAURANT_CUISINE)
                 .build();
 
         restaurantRepository.save(restaurant);
-
         Assertions.assertThat(restaurant.getRestaurantId()).isGreaterThan(0);
     }
 
@@ -42,9 +47,8 @@ public class RestaurantRepositoryTests {
     @Order(2)
     public void getRestaurantTest() {
 
-        Restaurant restaurant = restaurantRepository.findById(1).get();
-
-        Assertions.assertThat(restaurant.getRestaurantId()).isEqualTo(1);
+        Restaurant restaurant = restaurantRepository.findById(TARGET_INDEX).get();
+        Assertions.assertThat(restaurant.getRestaurantId()).isEqualTo(TARGET_INDEX);
     }
 
     @Test

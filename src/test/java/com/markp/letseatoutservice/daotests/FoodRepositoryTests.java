@@ -25,29 +25,35 @@ public class FoodRepositoryTests {
     @Autowired
     FoodRepository foodRepository;
 
+    final String FOOD_NAME = "Vegan Garden Goodness";
+    final String FOOD_DIET = "Vegan";
+    final int FOOD_RATING = 5;
+
+    final int TARGET_INDEX = 1;
+    final int FOODS_STORED = 1;
+    final int UNASSIGNED_INDEX = 0;
+
     @Test
     @Order(1)
     @Rollback(value = false)
     public void saveFoodTest() {
 
         Food food = Food.builder()
-                .foodName("Vegan Garden Goodness")
-                .foodDiet("Vegan")
-                .foodRating(5)
+                .foodName(FOOD_NAME)
+                .foodDiet(FOOD_DIET)
+                .foodRating(FOOD_RATING)
                 .build();
 
         foodRepository.save(food);
-
-        Assertions.assertThat(food.getFoodId()).isGreaterThan(0);
+        Assertions.assertThat(food.getFoodId()).isGreaterThan(UNASSIGNED_INDEX);
     }
 
     @Test
     @Order(2)
     public void getRestaurantTest() {
 
-        Food food = foodRepository.findById(1).get();
-
-        Assertions.assertThat(food.getFoodId()).isEqualTo(1);
+        Food food = foodRepository.findById(TARGET_INDEX).get();
+        Assertions.assertThat(food.getFoodId()).isEqualTo(TARGET_INDEX);
     }
 
     @Test
@@ -55,8 +61,7 @@ public class FoodRepositoryTests {
     public void getListOfRestaurantsTest() {
 
         List<Food> foods = foodRepository.findAll();
-
-        Assertions.assertThat(foods.size()).isGreaterThan(0);
+        Assertions.assertThat(foods.size()).isEqualTo(FOODS_STORED);
     }
 
     @Test
@@ -64,13 +69,12 @@ public class FoodRepositoryTests {
     @Rollback(value = false)
     public void updateRestaurantTest() {
 
-        Food food = foodRepository.findById(1).get();
+        String updatedFoodName = "Vegan Zesty Mexi";
+        Food food = foodRepository.findById(TARGET_INDEX).get();
 
-        food.setFoodName("Vegan Zesty Mexi");
-
+        food.setFoodName(updatedFoodName);
         Food updatedFood = foodRepository.save(food);
-
-        Assertions.assertThat(updatedFood.getFoodName()).isEqualTo("Vegan Zesty Mexi");
+        Assertions.assertThat(updatedFood.getFoodName()).isEqualTo(updatedFoodName);
     }
 
     @Test
@@ -78,16 +82,13 @@ public class FoodRepositoryTests {
     @Rollback(value = false)
     public void deleteRestaurantTest() {
 
-        foodRepository.deleteById(1);
-
-        Optional<Food> optionalFood = foodRepository.findById(1);
+        foodRepository.deleteById(TARGET_INDEX);
+        Optional<Food> optionalFood = foodRepository.findById(TARGET_INDEX);
 
         Food food = null;
-
         if(optionalFood.isPresent()) {
             food = optionalFood.get();
         }
-
         Assertions.assertThat(food).isNull();
     }
 }
